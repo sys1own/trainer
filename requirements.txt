@@ -1,0 +1,8 @@
+# Aero AutoDev — runtime dependencies.
+#
+# The source-modification layer parses target files into formal syntax trees
+# (Tree-Sitter) instead of using regex / string matching, so these are required
+# for the translation-swap pipeline (compile_production_swap.py / evolve_loop.py
+# --target ...).
+tree-sitter>=0.25,<0.26
+tree-sitter-rust>=0.24,<0.25

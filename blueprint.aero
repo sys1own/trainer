@@ -1,0 +1,39 @@
+# ======================================================================
+#         AEROOS COMPILATION ARCHITECTURE MATRIX — MASTER BLUEPRINT
+# ======================================================================
+
+[meta]
+project_name = "Aero_Cognitive_Gateway_Mesh"
+target_version = "2.4.0-delta"
+execution_mode = "strict_isolated_parametric"
+
+[graph]
+entrypoint = orchestrator
+targets = ["stage_01_crypto_verify", "stage_02_schema_compact", "stage_03_async_router", "stage_04_monolithic_link"]
+dependencies = {"stage_01_crypto_verify": [], "stage_02_schema_compact": ["stage_01_crypto_verify"], "stage_03_async_router": ["stage_01_crypto_verify", "stage_02_schema_compact"], "stage_04_monolithic_link": ["stage_03_async_router"]}
+workspace_mode = incremental
+allow_partial_graph = false
+stage_01_crypto_verify_source = "./src/auth/crypto_verify.py"
+stage_01_crypto_verify_output = "./dist/modules/crypto_verify.compiled.py"
+stage_02_schema_compact_source = "./src/data/schema_compact.py"
+stage_02_schema_compact_output = "./dist/modules/schema_compact.compiled.py"
+stage_03_async_router_source = "./src/network/async_router.py"
+stage_03_async_router_output = "./dist/modules/async_router.compiled.py"
+stage_04_monolithic_link_source = "./src/gateway_core.py"
+stage_04_monolithic_link_output = "./dist/bin/aero_gateway_mesh.alpha"
+
+[compiler]
+optimization_level = "O3"
+dead_code_elimination_passes = 4
+identifier_minification = true
+scope_aware_alpha_renaming = true
+strip_comments_and_dunders = true
+enforce_strict_typing_checks = true
+
+[cortex]
+target_accuracy_floor = 0.9850
+max_processing_latency_limit_us = 45000
+target_compression_ratio_ceiling = 0.3500
+kinetic_stagnation_window_size = 15
+experience_replay_save_threshold = 0.0025
+optimization_strategy_priority = "BALANCED_ACCURACY_SPEED"
