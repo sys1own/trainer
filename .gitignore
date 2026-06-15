@@ -1,0 +1,7 @@
+
+# UBT Build Artifacts
+.ubt_cache.json
+__pycache__/
+*.pyc
+build/
+dist/
